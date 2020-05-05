@@ -8,7 +8,8 @@ keyMap = {
     "up": False,
     "down": False,
     "left": False,
-    "right": False
+    "right": False,
+    "rotate": False
 }
 
 
@@ -39,6 +40,9 @@ class MyGame(ShowBase):
         self.accept("arrow_down", updateKeyMap, ["down", True])
         self.accept("arrow_down-up", updateKeyMap, ["down", False])
 
+        self.accept("space", updateKeyMap, ["rotate", True])
+        self.accept("space-up", updateKeyMap, ["rotate", False])
+
         self.speed = 4
         self.angle = 0
 
@@ -57,6 +61,9 @@ class MyGame(ShowBase):
             pos.z += self.speed * dt
         if keyMap["down"]:
             pos.z -= self.speed * dt
+        if keyMap['rotate']:
+            self.angle += 1
+            self.jack.setH(self.angle)
 
         self.jack.setPos(pos)
 
